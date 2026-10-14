@@ -4,7 +4,7 @@
   --color-accent: #ff7a59;
   --radius-panel: 16px;
   --shadow-panel: 0 10px 30px rgb(0 0 0 / 35%);
-  --font-sans: 'Segoe UI', system-ui, sans-serif;
+  --font-sans: 'Segoe UI', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
 }
 
 *,

@@ -27,6 +27,8 @@ import {
 
 const devServerUrl = process.env.VITE_DEV_SERVER_URL;
 const indexHtml = path.join(__dirname, '..', 'dist', 'index.html');
+const isMac = process.platform === 'darwin';
+// Ctrl+Alt+P on Windows, Ctrl+Option+P on macOS.
 const TOGGLE_SHORTCUT = 'Control+Alt+P';
 
 // Transparent windows can flicker on some Windows GPUs; opt-out without code changes.
@@ -91,6 +93,8 @@ function createWindow(): void {
     maximizable: false,
     fullscreenable: false,
     hasShadow: false,
+    // macOS: the first click on an inactive window should reach the character, not just focus it.
+    acceptFirstMouse: true,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       contextIsolation: true,
@@ -102,6 +106,8 @@ function createWindow(): void {
 
   // Keep it above full-screen-ish windows too.
   mainWindow.setAlwaysOnTop(true, 'floating');
+  // macOS: follow the user across Spaces and over full-screen apps.
+  if (isMac) mainWindow.setVisibleOnAllWorkspaces(true, { visibleOnFullScreen: true });
   // Transparent areas let clicks through; the renderer turns this off over interactive elements.
   mainWindow.setIgnoreMouseEvents(true, { forward: true });
 
@@ -167,7 +173,8 @@ function createTray(): void {
       { label: 'Salir', click: () => app.quit() },
     ]),
   );
-  tray.on('click', toggleVisibility);
+  // On macOS a click on the menu bar icon opens the menu; on Windows it toggles.
+  if (!isMac) tray.on('click', toggleVisibility);
 }
 
 if (!app.requestSingleInstanceLock()) {
@@ -176,6 +183,8 @@ if (!app.requestSingleInstanceLock()) {
   app.on('second-instance', () => mainWindow?.showInactive());
 
   app.whenReady().then(() => {
+    // macOS equivalent of skipTaskbar: no Dock icon, the menu bar icon is the entry point.
+    if (isMac) app.dock?.hide();
     registerIpc();
     createWindow();
     createTray();
