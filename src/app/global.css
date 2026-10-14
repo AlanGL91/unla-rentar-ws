@@ -1,0 +1,20 @@
+:root {
+  --color-bg: #1e1f26;
+  --color-fg: #f2f2f5;
+  --color-accent: #ff7a59;
+  --font-sans: 'Segoe UI', system-ui, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-fg);
+  font-family: var(--font-sans);
+}
