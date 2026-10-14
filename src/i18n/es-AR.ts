@@ -1,7 +1,8 @@
 export const es = {
   app: {
     title: 'Companion',
-    scaffoldReady: '¡Listo! Ya estás corriendo el compañero.',
-    platform: 'Plataforma',
+    panelPlaceholder: 'Acá va a aparecer el menú y el panel de concentración.',
+    characterLabel: 'Tu compañero',
+    characterHint: 'Hacé click para abrir · arrastrá para mover',
   },
 } as const;

@@ -1,7 +1,9 @@
 :root {
-  --color-bg: #1e1f26;
   --color-fg: #f2f2f5;
+  --color-surface: rgb(30 31 38 / 94%);
   --color-accent: #ff7a59;
+  --radius-panel: 16px;
+  --shadow-panel: 0 10px 30px rgb(0 0 0 / 35%);
   --font-sans: 'Segoe UI', system-ui, sans-serif;
 }
 
@@ -11,10 +13,12 @@
   box-sizing: border-box;
 }
 
+/* Transparent so only the character/panel are visible on the desktop. */
 html,
 body {
   margin: 0;
-  background: var(--color-bg);
+  overflow: hidden;
+  background: transparent;
   color: var(--color-fg);
   font-family: var(--font-sans);
 }

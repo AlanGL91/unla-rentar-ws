@@ -4,3 +4,7 @@ dist-electron/
 .env
 .env.local
 *.log
+
+# User-provided characters (may be third-party IP): keep local
+assets/characters/*
+!assets/characters/README.md
