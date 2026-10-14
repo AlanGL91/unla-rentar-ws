@@ -13,6 +13,7 @@ import {
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { IPC } from './ipc-channels';
+import { isValidCharacterId, loadSettings, saveSettings } from './settings';
 import { createTrayIcon } from './tray-icon';
 import {
   clampToWorkArea,
@@ -153,6 +154,15 @@ function registerIpc(): void {
       drag.window.x + cursor.x - drag.cursor.x,
       drag.window.y + cursor.y - drag.cursor.y,
     );
+  });
+
+  ipcMain.handle(IPC.settingsGetCharacter, (event) =>
+    isTrustedSender(event) ? (loadSettings().characterId ?? null) : null,
+  );
+
+  ipcMain.on(IPC.settingsSetCharacter, (event, id: unknown) => {
+    if (!isTrustedSender(event) || !isValidCharacterId(id)) return;
+    saveSettings({ ...loadSettings(), characterId: id });
   });
 
   ipcMain.on(IPC.windowDragEnd, (event) => {

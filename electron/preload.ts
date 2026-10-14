@@ -9,6 +9,8 @@ const IPC = {
   windowDragStart: 'window:drag-start',
   windowDragMove: 'window:drag-move',
   windowDragEnd: 'window:drag-end',
+  settingsGetCharacter: 'settings:get-character',
+  settingsSetCharacter: 'settings:set-character',
 } as const;
 
 type WindowMode = 'collapsed' | 'expanded';
@@ -27,6 +29,10 @@ const companionApi = {
     dragStart: (): void => ipcRenderer.send(IPC.windowDragStart),
     dragMove: (): void => ipcRenderer.send(IPC.windowDragMove),
     dragEnd: (): void => ipcRenderer.send(IPC.windowDragEnd),
+  },
+  settings: {
+    getCharacter: (): Promise<string | null> => ipcRenderer.invoke(IPC.settingsGetCharacter),
+    setCharacter: (id: string): void => ipcRenderer.send(IPC.settingsSetCharacter, id),
   },
 };
 

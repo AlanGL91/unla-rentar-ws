@@ -15,6 +15,10 @@ declare global {
         dragMove(): void;
         dragEnd(): void;
       };
+      readonly settings: {
+        getCharacter(): Promise<string | null>;
+        setCharacter(id: string): void;
+      };
     };
   }
 }

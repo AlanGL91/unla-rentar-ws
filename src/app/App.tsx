@@ -1,6 +1,13 @@
 import { useEffect } from 'react';
+import { Companion } from '../characters/Companion';
+import {
+  selectAnimationState,
+  selectCurrentCharacter,
+  useCompanionStore,
+} from '../characters/companionStore';
 import { es } from '../i18n/es-AR';
 import styles from './App.module.css';
+import { DevPanel } from './DevPanel';
 import { useClickThrough } from './useClickThrough';
 import { useDragOrClick } from './useDragOrClick';
 import { useWindowStore } from './windowStore';
@@ -9,10 +16,16 @@ export function App() {
   const mode = useWindowStore((s) => s.mode);
   const setMode = useWindowStore((s) => s.setMode);
   const toggle = useWindowStore((s) => s.toggle);
+  const character = useCompanionStore(selectCurrentCharacter);
+  const animationState = useCompanionStore(selectAnimationState);
+  const endPet = useCompanionStore((s) => s.endPet);
   const dragHandlers = useDragOrClick(toggle);
 
   useClickThrough();
   useEffect(() => useWindowStore.getState().init(), []);
+  useEffect(() => {
+    void useCompanionStore.getState().init();
+  }, []);
 
   useEffect(() => {
     const collapse = () => setMode('collapsed');
@@ -29,12 +42,7 @@ export function App() {
 
   return (
     <main className={styles.shell} data-mode={mode}>
-      {mode === 'expanded' && (
-        <section className={styles.panel} data-interactive>
-          <h1 className={styles.title}>{es.app.title}</h1>
-          <p>{es.app.panelPlaceholder}</p>
-        </section>
-      )}
+      {mode === 'expanded' && <DevPanel />}
       <div className={styles.stage}>
         <button
           type="button"
@@ -43,7 +51,9 @@ export function App() {
           title={es.app.characterHint}
           data-interactive
           {...dragHandlers}
-        />
+        >
+          <Companion character={character} state={animationState} onOneShotEnd={endPet} />
+        </button>
       </div>
     </main>
   );

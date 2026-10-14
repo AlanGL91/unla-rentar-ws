@@ -7,4 +7,6 @@ export const IPC = {
   windowDragStart: 'window:drag-start',
   windowDragMove: 'window:drag-move',
   windowDragEnd: 'window:drag-end',
+  settingsGetCharacter: 'settings:get-character',
+  settingsSetCharacter: 'settings:set-character',
 } as const;

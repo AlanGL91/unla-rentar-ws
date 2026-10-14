@@ -5,21 +5,6 @@
   height: 100vh;
 }
 
-.panel {
-  flex: 1;
-  margin: 12px 12px 0;
-  padding: 16px;
-  border-radius: var(--radius-panel);
-  background: var(--color-surface);
-  box-shadow: var(--shadow-panel);
-  user-select: none;
-}
-
-.title {
-  margin: 0 0 8px;
-  font-size: 1.1rem;
-}
-
 /* Fixed 200×200 box at the bottom-center: matches the collapsed window, so the character never jumps. */
 .stage {
   flex: 0 0 200px;
@@ -27,29 +12,22 @@
   place-items: center;
 }
 
-/* Temporary placeholder until the <Companion /> component (phase 3). */
 .character {
-  width: 120px;
-  height: 120px;
+  display: grid;
+  place-items: center;
+  padding: 0;
   border: none;
-  border-radius: 50%;
-  background: radial-gradient(circle at 35% 30%, #ffb38a, var(--color-accent));
-  box-shadow: 0 8px 18px rgb(0 0 0 / 35%);
+  background: none;
   cursor: grab;
   touch-action: none;
-  animation: breathe 3.2s ease-in-out infinite;
 }
 
 .character:active {
   cursor: grabbing;
 }
 
-@keyframes breathe {
-  0%,
-  100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.04);
-  }
+.character:focus-visible {
+  outline: 2px dashed var(--color-accent);
+  outline-offset: 4px;
+  border-radius: 12px;
 }

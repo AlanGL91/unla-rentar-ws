@@ -1,0 +1,64 @@
+.panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin: 12px 12px 0;
+  padding: 16px;
+  border-radius: var(--radius-panel);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-panel);
+  user-select: none;
+}
+
+.title {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.85rem;
+}
+
+.panel select,
+.panel button {
+  font: inherit;
+  color: inherit;
+  padding: 8px 10px;
+  border: 1px solid rgb(255 255 255 / 12%);
+  border-radius: 10px;
+  background: rgb(255 255 255 / 6%);
+  cursor: pointer;
+}
+
+.panel select option {
+  color: #111;
+}
+
+.primary {
+  background: var(--color-accent) !important;
+  border-color: transparent !important;
+  color: #1e1f26 !important;
+  font-weight: 600;
+}
+
+.states {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+.states legend {
+  margin-bottom: 6px;
+  font-size: 0.85rem;
+}
+
+.states button[aria-pressed='true'] {
+  border-color: var(--color-accent);
+}
